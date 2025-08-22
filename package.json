@@ -1,7 +1,7 @@
 {
-  "name": "ngx-daterangepicker-material",
+  "name": "@crontabman/ngx-daterangepicker-material",
   "version": "6.0.4",
-  "description": "Angular 9 and 10 date range picker (with material design theme)",
+  "description": "Fork mantenido de ngx-daterangepicker-material con fixes",
   "keywords": [
     "angular2",
     "angular4",
@@ -41,10 +41,10 @@
     "copy:schematics": "cpr schematics/dist dist/schematics && cp ./schematics/collection.json ./dist/schematics && cp ./schematics/ng-add/schema.json ./dist/schematics/ng-add",
     "postbuild": "npm run build:schematics && npm run copy:schematics"
   },
-  "author": "Fetrarijaona R.",
+  "author": "Crontab",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fetrarij/ngx-daterangepicker-material.git"
+    "url": "https://github.com/crontabman/ngx-daterangepicker-material.git"
   },
   "peerDependencies": {
     "dayjs": "^1.11.4"
