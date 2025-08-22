@@ -638,7 +638,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
   renderCalendar(side: SideEnum): void {
     // side enum
     const mainCalendar: VisibleCalendar = side === SideEnum.left ? this.leftCalendar : this.rightCalendar;
-    const month: number = mainCalendar.month.month();
+    const month: number = mainCalendar.month?.month();
     const year: number = mainCalendar.month.year();
     const hour: number = mainCalendar.month.hour();
     const minute: number = mainCalendar.month.minute();
@@ -646,7 +646,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
     const daysInMonth: number = dayjs(new Date(year, month)).utc(true).daysInMonth();
     const firstDay: Dayjs = dayjs(new Date(year, month, 1)).utc(true);
     const lastDay: Dayjs = dayjs(new Date(year, month, daysInMonth)).utc(true);
-    const lastMonth: number = dayjs(firstDay).utc(true).subtract(1, 'month').month();
+    const lastMonth: number = dayjs(firstDay).utc(true).subtract(1, 'month')?.month();
     const lastYear: number = dayjs(firstDay).utc(true).subtract(1, 'month').year();
     const daysInLastMonth: number = dayjs(new Date(lastYear, lastMonth)).utc(true).daysInMonth();
     const dayOfWeek: number = firstDay.day();
@@ -748,7 +748,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
       calendar
     };
     if (this.showDropdowns) {
-      const currentMonth: number = calendar[1][1].month();
+      const currentMonth: number = calendar[1][1]?.month();
       const currentYear: number = calendar[1][1].year();
       const realCurrentYear: number = dayjs().utc(true).year();
       const maxYear: number = (maxDate && maxDate.year()) || realCurrentYear + 5;
@@ -880,7 +880,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
           return;
         }
         this.leftCalendar.month = this.startDate.clone().date(2);
-        if (!this.linkedCalendars && (this.endDate.month() !== this.startDate.month() || this.endDate.year() !== this.startDate.year())) {
+        if (!this.linkedCalendars && (this.endDate?.month() !== this.startDate?.month() || this.endDate.year() !== this.startDate.year())) {
           this.rightCalendar.month = this.endDate.clone().date(2);
         } else {
           this.rightCalendar.month = this.startDate.clone().date(2).add(1, 'month');
@@ -1139,22 +1139,22 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
     let newYear = year;
 
     if (!isLeft) {
-      if (newYear < this.startDate.year() || (newYear === this.startDate.year() && newMonth < this.startDate.month())) {
-        newMonth = this.startDate.month();
+      if (newYear < this.startDate.year() || (newYear === this.startDate.year() && newMonth < this.startDate?.month())) {
+        newMonth = this.startDate?.month();
         newYear = this.startDate.year();
       }
     }
 
     if (this.minDate) {
-      if (newYear < this.minDate.year() || (newYear === this.minDate.year() && newMonth < this.minDate.month())) {
-        newMonth = this.minDate.month();
+      if (newYear < this.minDate.year() || (newYear === this.minDate.year() && newMonth < this.minDate?.month())) {
+        newMonth = this.minDate?.month();
         newYear = this.minDate.year();
       }
     }
 
     if (this.maxDate) {
-      if (newYear > this.maxDate.year() || (newYear === this.maxDate.year() && newMonth > this.maxDate.month())) {
-        newMonth = this.maxDate.month();
+      if (newYear > this.maxDate.year() || (newYear === this.maxDate.year() && newMonth > this.maxDate?.month())) {
+        newMonth = this.maxDate?.month();
         newYear = this.maxDate.year();
       }
     }
@@ -1346,16 +1346,16 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
           return this.clickApply();
         }
         if (this.maxDate && this.maxDate.isSame(dates[0], 'month')) {
-          this.rightCalendar.month = this.rightCalendar.month.month(dates[0].month());
+          this.rightCalendar.month = this.rightCalendar.month.month(dates[0]?.month());
           this.rightCalendar.month = this.rightCalendar.month.year(dates[0].year());
-          this.leftCalendar.month = this.leftCalendar.month.month(dates[0].month() - 1);
+          this.leftCalendar.month = this.leftCalendar.month.month(dates[0]?.month() - 1);
           this.leftCalendar.month = this.leftCalendar.month.year(dates[1].year());
         } else {
-          this.leftCalendar.month = this.leftCalendar.month.month(dates[0].month());
+          this.leftCalendar.month = this.leftCalendar.month.month(dates[0]?.month());
           this.leftCalendar.month = this.leftCalendar.month.year(dates[0].year());
           // get the right calendar value
           const nextMonth = !this.linkedCalendars ? dates[1].clone() : dates[0].clone().add(1, 'month');
-          this.rightCalendar.month = this.rightCalendar.month.month(nextMonth.month());
+          this.rightCalendar.month = this.rightCalendar.month.month(nextMonth?.month());
           this.rightCalendar.month = this.rightCalendar.month.year(nextMonth.year());
         }
         this.updateCalendars();
@@ -1503,7 +1503,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
       const rowClasses = [];
       if (
         this.emptyWeekRowClass &&
-        Array.from(Array(7).keys()).some((i) => calendar[row][i].month() !== this.calendarVariables[side].month)
+        Array.from(Array(7).keys()).some((i) => calendar[row][i]?.month() !== this.calendarVariables[side].month)
       ) {
         rowClasses.push(this.emptyWeekRowClass);
       }
@@ -1511,7 +1511,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
         const classes = [];
         // empty week row class
         if (this.emptyWeekColumnClass) {
-          if (calendar[row][col].month() !== this.calendarVariables[side].month) {
+          if (calendar[row][col]?.month() !== this.calendarVariables[side].month) {
             classes.push(this.emptyWeekColumnClass);
           }
         }
@@ -1524,13 +1524,13 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
           classes.push('weekend');
         }
         // grey out the dates in other months displayed at beginning and end of this calendar
-        if (calendar[row][col].month() !== calendar[1][1].month()) {
+        if (calendar[row][col]?.month() !== calendar[1][1]?.month()) {
           classes.push('off');
 
           // mark the last day of the previous month in this calendar
           if (
             this.lastDayOfPreviousMonthClass &&
-            (calendar[row][col].month() < calendar[1][1].month() || calendar[1][1].month() === 0) &&
+            (calendar[row][col]?.month() < calendar[1][1]?.month() || calendar[1][1]?.month() === 0) &&
             calendar[row][col].date() === this.calendarVariables[side].daysInLastMonth
           ) {
             classes.push(this.lastDayOfPreviousMonthClass);
@@ -1539,7 +1539,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
           // mark the first day of the next month in this calendar
           if (
             this.firstDayOfNextMonthClass &&
-            (calendar[row][col].month() > calendar[1][1].month() || calendar[row][col].month() === 0) &&
+            (calendar[row][col]?.month() > calendar[1][1]?.month() || calendar[row][col]?.month() === 0) &&
             calendar[row][col].date() === 1
           ) {
             classes.push(this.firstDayOfNextMonthClass);
@@ -1548,7 +1548,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
         // mark the first day of the current month with a custom class
         if (
           this.firstMonthDayClass &&
-          calendar[row][col].month() === calendar[1][1].month() &&
+          calendar[row][col]?.month() === calendar[1][1]?.month() &&
           calendar[row][col].date() === calendar.firstDay.date()
         ) {
           classes.push(this.firstMonthDayClass);
@@ -1556,7 +1556,7 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
         // mark the last day of the current month with a custom class
         if (
           this.lastMonthDayClass &&
-          calendar[row][col].month() === calendar[1][1].month() &&
+          calendar[row][col]?.month() === calendar[1][1]?.month() &&
           calendar[row][col].date() === calendar.lastDay.date()
         ) {
           classes.push(this.lastMonthDayClass);

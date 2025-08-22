@@ -53,13 +53,13 @@
                         <th colspan="5" class="month drp-animate">
                             <ng-container *ngIf="showDropdowns && calendarVariables.left.dropdowns">
                                 <div class="dropdowns">
-                                    {{ this.locale.monthNames[calendarVariables?.left?.calendar[1][1].month()] }}
+                                    {{ this.locale.monthNames[calendarVariables?.left?.calendar[1][1]?.month()] }}
                                     <select class="monthselect" (change)="monthChanged($event, sideEnum.left)">
                                         <option
                                             [disabled]="
                                                 (calendarVariables.left.dropdowns.inMinYear &&
-                                                    m < calendarVariables.left.minDate.month()) ||
-                                                (calendarVariables.left.dropdowns.inMaxYear && m > calendarVariables.left.maxDate.month())
+                                                    m < calendarVariables.left.minDate?.month()) ||
+                                                (calendarVariables.left.dropdowns.inMaxYear && m > calendarVariables.left.maxDate?.month())
                                             "
                                             *ngFor="let m of calendarVariables.left.dropdowns.monthArrays"
                                             [value]="m"
@@ -80,7 +80,7 @@
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="!showDropdowns || !calendarVariables.left.dropdowns">
-                                {{ this.locale.monthNames[calendarVariables?.left?.calendar[1][1].month()] }}
+                                {{ this.locale.monthNames[calendarVariables?.left?.calendar[1][1]?.month()] }}
                                 {{ calendarVariables?.left?.calendar[1][1].format(' YYYY') }}
                             </ng-container>
                         </th>
@@ -222,16 +222,16 @@
                         <th colspan="5" class="month">
                             <ng-container *ngIf="showDropdowns && calendarVariables.right.dropdowns">
                                 <div class="dropdowns">
-                                    {{ this.locale.monthNames[calendarVariables?.right?.calendar[1][1].month()] }}
+                                    {{ this.locale.monthNames[calendarVariables?.right?.calendar[1][1]?.month()] }}
                                     <select class="monthselect" (change)="monthChanged($event, sideEnum.right)">
                                         <option
                                             [disabled]="
                                                 (calendarVariables.right.dropdowns.inMinYear &&
                                                     calendarVariables.right.minDate &&
-                                                    m < calendarVariables.right.minDate.month()) ||
+                                                    m < calendarVariables.right.minDate?.month()) ||
                                                 (calendarVariables.right.dropdowns.inMaxYear &&
                                                     calendarVariables.right.maxDate &&
-                                                    m > calendarVariables.right.maxDate.month())
+                                                    m > calendarVariables.right.maxDate?.month())
                                             "
                                             *ngFor="let m of calendarVariables.right.dropdowns.monthArrays"
                                             [value]="m"
@@ -252,7 +252,7 @@
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="!showDropdowns || !calendarVariables.right.dropdowns">
-                                {{ this.locale.monthNames[calendarVariables?.right?.calendar[1][1].month()] }}
+                                {{ this.locale.monthNames[calendarVariables?.right?.calendar[1][1]?.month()] }}
                                 {{ calendarVariables?.right?.calendar[1][1].format(' YYYY') }}
                             </ng-container>
                         </th>
